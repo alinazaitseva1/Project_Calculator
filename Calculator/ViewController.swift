@@ -19,11 +19,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
     
-    var isTypingNumber = false
-    var previousValue = 0.0
-    var result = 0.0
-    var operatort = ""
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -36,6 +32,13 @@ class ViewController: UIViewController {
             display.text = String(newValue)
         }
     }
+    
+    var isTypingNumber = false
+    var previousValue = 0.0
+    var result = 0.0
+    var operatort = ""
+    var operation: String?
+
     
     func resetDisplay() {
         display.text = "0"
@@ -62,20 +65,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func performOperator(_ sender: UIButton) {
-        isTypingNumber = false
-        previousValue = displayValue
-       
-        if let matematicAction = sender.currentTitle {
-            switch matematicAction {
-            case "=":
-                isTypingNumber = false
-                displayValue = returnMeaningAction(a: result, displayValue, oper: operatort)
-            case "√":
-                 displayValue = sqrt(displayValue)
-            default: break
-                
-            }
+
+        if operation == nil {
+            previousValue = displayValue
+            isTypingNumber = false
+            operation = sender.currentTitle
+        } else {
+            displayValue = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
         }
+        
     }
 
      func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
