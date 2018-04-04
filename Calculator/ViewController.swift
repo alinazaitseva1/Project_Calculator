@@ -24,6 +24,10 @@ class ViewController: UIViewController {
     var result = 0.0
     var operatort = ""
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     var displayValue: Double {
         get {
             return Double(display.text!)!
@@ -36,21 +40,25 @@ class ViewController: UIViewController {
     func resetDisplay() {
         display.text = "0"
         previousValue = 0.0
+        isTypingNumber = false
         
     }
-    
     
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
         
-        if isTypingNumber {
+        if isTypingNumber, display.text != "0" {
             let textCurrentlyInDisplay = display.text!
             display.text = textCurrentlyInDisplay + digit
             
-        } else {
+        } else if digit != "0" {
             display.text = digit
             isTypingNumber = true
         }
+    }
+    
+    @IBAction func resetActions(_ sender: UIButton) {
+        resetDisplay()
     }
     
     @IBAction func performOperator(_ sender: UIButton) {
@@ -59,43 +67,18 @@ class ViewController: UIViewController {
        
         if let matematicAction = sender.currentTitle {
             switch matematicAction {
-            case "+":
-              result = displayValue
-              operatort = matematicAction
-            case "-":
-                result = displayValue
-                operatort = matematicAction
-            case "*":
-                result = displayValue
-                operatort = matematicAction
-            case "÷":
-                result = displayValue
-                operatort = matematicAction
             case "=":
-                displayValue = equalAction(for: result, displayValue, by: operatort)
+                isTypingNumber = false
+                displayValue = returnMeaningAction(a: result, displayValue, oper: operatort)
             case "√":
                  displayValue = sqrt(displayValue)
             default: break
                 
             }
-    
         }
     }
-    
-    func equalAction (for firstDigit: Double, _ secondDigit: Double, by operatort: String) -> Double {
-        var result = 0.0
-        switch operatort {
-        case "+":
-            result = firstDigit + secondDigit
-        default:
-            break
-        
-        }
-        return result
-    
-    }
-    
-     func returnMeaningAction(a: Double, b: Double, oper: String) -> Double {
+
+     func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
         var result = 0.0
         switch oper {
             case "+":

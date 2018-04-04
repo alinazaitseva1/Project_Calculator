@@ -202,6 +202,7 @@
                                 <state key="normal" title="C"/>
                                 <connections>
                                     <action selector="performOperator:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gp1-5c-5Vj"/>
+                                    <action selector="resetActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="311-Hc-ZTK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F91-gF-MDb">
@@ -212,7 +213,6 @@
                                 <color key="tintColor" red="0.0297320272" green="0.028737158150000001" blue="0.023484447709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="="/>
                                 <connections>
-                                    <action selector="equalsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f55-6B-QDi"/>
                                     <action selector="performOperator:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1eD-G1-Xqa"/>
                                 </connections>
                             </button>
