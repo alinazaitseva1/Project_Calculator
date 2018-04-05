@@ -65,12 +65,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func performOperator(_ sender: UIButton) {
-
+        isTypingNumber = false
         if operation == nil {
             previousValue = displayValue
-            isTypingNumber = false
             operation = sender.currentTitle
         } else {
+
             displayValue = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
         }
         

@@ -201,7 +201,6 @@
                                 <color key="tintColor" red="0.0297320272" green="0.028737158150000001" blue="0.023484447709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="C"/>
                                 <connections>
-                                    <action selector="performOperator:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gp1-5c-5Vj"/>
                                     <action selector="resetActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="311-Hc-ZTK"/>
                                 </connections>
                             </button>
