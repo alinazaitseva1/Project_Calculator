@@ -36,14 +36,15 @@ class ViewController: UIViewController {
     var isTypingNumber = false
     var previousValue = 0.0
     var result = 0.0
-    var operatort = ""
     var operation: String?
+    var isDoingOperation = false
 
     
     func resetDisplay() {
         display.text = "0"
         previousValue = 0.0
         isTypingNumber = false
+        result = 0.0
         
     }
     
@@ -66,14 +67,18 @@ class ViewController: UIViewController {
     
     @IBAction func performOperator(_ sender: UIButton) {
         isTypingNumber = false
-        if operation == nil {
-            previousValue = displayValue
-            operation = sender.currentTitle
-        } else {
-
-            displayValue = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
+        if let matematicalSymbol = sender.currentTitle {
+            if operation == nil {
+                previousValue = displayValue
+                operation = matematicalSymbol
+            } else {
+                result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
+                displayValue = result
+                previousValue = displayValue
+                operation = matematicalSymbol
+            }
         }
-        
+    
     }
 
      func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
@@ -85,11 +90,11 @@ class ViewController: UIViewController {
                 result = a - b
             case "*":
                 result = a * b
-            case "/":
+            case "÷":
                 result = a / b
     
         default:
-           break
+           print("default")
         }
         
     return result
