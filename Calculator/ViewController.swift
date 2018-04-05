@@ -33,6 +33,17 @@ class ViewController: UIViewController {
         }
     }
     
+    func ValidateData(inputedValue value: Double) -> Bool {
+        let MaxLimit = 1000.0
+        let minLimit = -1000.0
+        if value < MaxLimit && value > minLimit {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
     var isTypingNumber = false
     var previousValue = 0.0
     var result = 0.0
@@ -104,6 +115,9 @@ class ViewController: UIViewController {
                 result = a * b
             case "÷":
                 result = a / b
+                if b == 0.0 {
+                    result = a
+            }
     
         default:
            print("default")
