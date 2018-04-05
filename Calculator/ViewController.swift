@@ -41,11 +41,12 @@ class ViewController: UIViewController {
 
     
     func resetDisplay() {
-        display.text = "0"
+        displayValue = 0.0
         previousValue = 0.0
         isTypingNumber = false
         result = 0.0
-        
+        isDoingOperation = false
+        operation = nil
     }
     
     @IBAction func touchDigit(_ sender: UIButton) {
@@ -67,20 +68,31 @@ class ViewController: UIViewController {
     
     @IBAction func performOperator(_ sender: UIButton) {
         isTypingNumber = false
+        isDoingOperation = true
         if let matematicalSymbol = sender.currentTitle {
             if operation == nil {
                 previousValue = displayValue
                 operation = matematicalSymbol
             } else {
+                operation = matematicalSymbol
                 result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
+                operation = nil
                 displayValue = result
                 previousValue = displayValue
-                operation = matematicalSymbol
+                isTypingNumber = false
+                
             }
         }
-    
     }
-
+    
+    @IBAction func equalAction(_ sender: UIButton) {
+        guard let operation = operation else { return }
+        result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
+        isTypingNumber = false
+        isDoingOperation = true
+        displayValue = result
+    }
+    
      func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
         var result = 0.0
         switch oper {
