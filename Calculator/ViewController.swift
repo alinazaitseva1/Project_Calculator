@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func validateData(inputedValue value: Double) -> Bool {
+    func validateData(inputValue value: Double) -> Bool {
         let maxLimit = 1000.0
         let minLimit = -1000.0
         if value < maxLimit && value > minLimit {
