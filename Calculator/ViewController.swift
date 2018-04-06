@@ -44,7 +44,6 @@ class ViewController: UIViewController {
     var operation: String?
     var isDoingOperation = false
 
-    
     func resetDisplay() {
         displayValue = 0.0
         previousValue = 0.0
@@ -53,6 +52,11 @@ class ViewController: UIViewController {
         isDoingOperation = false
         operation = nil
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        print("it")
+    }
+    
     
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
@@ -85,7 +89,6 @@ class ViewController: UIViewController {
                 displayValue = result
                 previousValue = displayValue
                 isTypingNumber = false
-                
             }
         }
     }
@@ -115,7 +118,6 @@ class ViewController: UIViewController {
         default:
            print("default")
         }
-        
     return result
  }
     
