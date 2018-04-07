@@ -83,6 +83,9 @@ class ViewController: UIViewController {
                 previousValue = displayValue
                 operation = matematicalSymbol
             } else {
+                result = returnHiddenMeaningAction(value: displayValue, operat: operation!)
+                displayValue = result
+                
                 operation = matematicalSymbol
                 result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
                 operation = nil
@@ -95,6 +98,7 @@ class ViewController: UIViewController {
     
     @IBAction func equalAction(_ sender: UIButton) {
         guard let operation = operation else { return }
+        result = returnHiddenMeaningAction(value: displayValue, operat: operation)
         result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
         isTypingNumber = false
         isDoingOperation = true
@@ -120,6 +124,31 @@ class ViewController: UIViewController {
         }
     return result
  }
+    func returnHiddenMeaningAction(value: Double, operat: String ) -> Double {
+        var result = 0.0
+        switch operat {
+        case "x²":
+            result = pow(value, 2)
+        case "x³":
+            result = pow(value, 3)
+        case "xʸ":
+            result = pow(value, value)
+        case "eˣ":
+            result = exp(value)
+        case "sin":
+            result = sin(value*Double.pi/180)
+        case "cos":
+            result = cos(value*Double.pi*180)
+        case "tan":
+            result = tan(value)
+        case "ctg":
+            result = 1/tan(value)
+        default:
+            print("default")
+        }
+        return result
+
+    }
     
 }
 
