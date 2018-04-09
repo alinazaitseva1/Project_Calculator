@@ -53,11 +53,6 @@ class ViewController: UIViewController {
         operation = nil
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        print("it")
-    }
-    
-    
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
         
