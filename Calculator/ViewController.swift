@@ -55,11 +55,12 @@ class ViewController: UIViewController {
     
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
-        
-        if isTypingNumber, display.text != "0" {
+            if isTypingNumber, display.text != "0" {
             let textCurrentlyInDisplay = display.text!
-            display.text = textCurrentlyInDisplay + digit
-            
+            let verificationValue = Double(textCurrentlyInDisplay + digit)
+                if validateData(inputValue: verificationValue!) {
+                    display.text = textCurrentlyInDisplay + digit
+                }
         } else if digit != "0" {
             display.text = digit
             isTypingNumber = true
@@ -78,8 +79,8 @@ class ViewController: UIViewController {
                 previousValue = displayValue
                 operation = matematicalSymbol
             } else {
-                result = returnHiddenMeaningAction(value: displayValue, operat: operation!)
-                displayValue = result
+                operation = matematicalSymbol
+                displayValue = returnHiddenMeaningAction(value: displayValue, operat: operation!)
                 
                 operation = matematicalSymbol
                 result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
