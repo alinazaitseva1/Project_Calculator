@@ -78,10 +78,8 @@ class ViewController: UIViewController {
             if operation == nil {
                 previousValue = displayValue
                 operation = matematicalSymbol
-            } else {
-                operation = matematicalSymbol
                 displayValue = returnHiddenMeaningAction(value: displayValue, operat: operation!)
-                
+            } else {
                 operation = matematicalSymbol
                 result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
                 operation = nil
@@ -95,9 +93,9 @@ class ViewController: UIViewController {
     @IBAction func equalAction(_ sender: UIButton) {
         guard let operation = operation else { return }
         result = returnHiddenMeaningAction(value: displayValue, operat: operation)
-        result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
         isTypingNumber = false
         isDoingOperation = true
+        result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
         displayValue = result
     }
     
