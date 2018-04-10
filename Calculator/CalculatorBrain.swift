@@ -19,15 +19,15 @@ struct CalculatorBrain {
     }
     
     private var operationActions: Dictionary <String,Operation> = [
-        "x²" : Operation.binaryOperation({pow($0, 2)}),
-        "x³" : Operation.binaryOperation({pow($0, 3)}),
-        "eˣ" : Operation.binaryOperation({exp($0)}),
+        "x²" : Operation.unaryOperation({pow($0, 2)}),
+        "x³" : Operation.unaryOperation({pow($0, 3)}),
+        "eˣ" : Operation.unaryOperation({exp($0)}),
         "±" : Operation.unaryOperation({-$0}),
         "sin" : Operation.unaryOperation(sin),
         "cos" : Operation.unaryOperation(cos),
         "tan" : Operation.unaryOperation(tan),
         "ctg" : Operation.unaryOperation(tan),
-        "xʸ" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
+//        "xʸ" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
         "÷" : Operation.binaryOperation({$0 / $1}),
         "+" : Operation.binaryOperation({$0 + $1}),
         "-" : Operation.binaryOperation({$0 - $1}),
@@ -66,7 +66,7 @@ struct CalculatorBrain {
                     displayValue = nil
                 }
             case .equalAction:
-                performBinaryOperation() 
+                performBinaryOperation()
             }
         }
     }

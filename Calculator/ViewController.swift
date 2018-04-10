@@ -32,17 +32,13 @@ class ViewController: UIViewController {
     }
     
     var isTypingNumber = false
-    var previousValue = 0.0
     var result = 0.0
     var operation: String?
-    var isDoingOperation = false
 
     func resetDisplay() {
         displayValue = 0.0
-        previousValue = 0.0
         isTypingNumber = false
         result = 0.0
-        isDoingOperation = false
         operation = nil
     }
     
@@ -80,11 +76,4 @@ class ViewController: UIViewController {
     }
     
 }
-
-
-
-
-
-
-
 
