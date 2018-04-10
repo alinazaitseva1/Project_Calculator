@@ -63,7 +63,6 @@
 		CE85A68A2074C49B0064D1D7 = {
 			isa = PBXGroup;
 			children = (
-				CE24B81B207CB46000C38E88 /* CalculatorBrain.swift */,
 				CE85A6B72074C8120064D1D7 /* Default-568h@2x.png */,
 				CE85A6952074C49B0064D1D7 /* Calculator */,
 				CE85A6AA2074C49B0064D1D7 /* CalculatorTests */,
@@ -83,6 +82,7 @@
 		CE85A6952074C49B0064D1D7 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				CE24B81B207CB46000C38E88 /* CalculatorBrain.swift */,
 				CE85A6982074C49B0064D1D7 /* ViewController.swift */,
 				CE85A69A2074C49B0064D1D7 /* Main.storyboard */,
 				CE85A6B62074C6520064D1D7 /* Supporting files */,

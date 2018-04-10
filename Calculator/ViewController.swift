@@ -67,20 +67,17 @@ class ViewController: UIViewController {
     private var makeCalculation = CalculatorBrain()
     
     @IBAction func performOperator(_ sender: UIButton) {
-        isTypingNumber = false
-        isDoingOperation = true
-        
         if isTypingNumber {
             makeCalculation.setOperand(displayValue)
             isTypingNumber = false
         }
         if let matematicalSymbol = sender.currentTitle {
             makeCalculation.performOperation(matematicalSymbol)
-    }
+        }
         if let result = makeCalculation.result {
             displayValue = result
         }
-}
+    }
     @IBAction func equalAction(_ sender: UIButton) {
         
     }
