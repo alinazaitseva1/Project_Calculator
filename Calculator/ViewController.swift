@@ -19,11 +19,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
     
-    var isTypingNumber = false
-    var previousValue = 0.0
-    var result = 0.0
-    var operatort = ""
-    
     var displayValue: Double {
         get {
             return Double(display.text!)!
@@ -33,69 +28,77 @@ class ViewController: UIViewController {
         }
     }
     
-    func resetDisplay() {
-        display.text = "0"
-        previousValue = 0.0
-        
+    func validateData(inputValue value: Double) -> Bool {
+        let maxLimit = 1000.0
+        let minLimit = -1000.0
+        if value < maxLimit && value > minLimit {
+            return true
+        } else {
+            return false
+        }
     }
     
+    var isTypingNumber = false
+    var previousValue = 0.0
+    var result = 0.0
+    var operation: String?
+    var isDoingOperation = false
+
+    
+    func resetDisplay() {
+        displayValue = 0.0
+        previousValue = 0.0
+        isTypingNumber = false
+        result = 0.0
+        isDoingOperation = false
+        operation = nil
+    }
     
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
         
-        if isTypingNumber {
+        if isTypingNumber, display.text != "0" {
             let textCurrentlyInDisplay = display.text!
             display.text = textCurrentlyInDisplay + digit
             
-        } else {
+        } else if digit != "0" {
             display.text = digit
             isTypingNumber = true
         }
     }
     
+    @IBAction func resetActions(_ sender: UIButton) {
+        resetDisplay()
+    }
+    
     @IBAction func performOperator(_ sender: UIButton) {
         isTypingNumber = false
-        previousValue = displayValue
-       
-        if let matematicAction = sender.currentTitle {
-            switch matematicAction {
-            case "+":
-              result = displayValue
-              operatort = matematicAction
-            case "-":
-                result = displayValue
-                operatort = matematicAction
-            case "*":
-                result = displayValue
-                operatort = matematicAction
-            case "÷":
-                result = displayValue
-                operatort = matematicAction
-            case "=":
-                displayValue = equalAction(for: result, displayValue, by: operatort)
-            case "√":
-                 displayValue = sqrt(displayValue)
-            default: break
+        isDoingOperation = true
+        if let matematicalSymbol = sender.currentTitle {
+            if operation == nil {
+                previousValue = displayValue
+                operation = matematicalSymbol
+            } else {
+                operation = matematicalSymbol
+                result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
+                operation = nil
+                displayValue = result
+                previousValue = displayValue
+                isTypingNumber = false
                 
             }
-    
         }
     }
     
-    func equalAction (for firstDigit: Double, _ secondDigit: Double, by operatort: String) -> Double {
-        var result = 0.0
-        switch operatort {
-        case "+":
-            result = firstDigit + secondDigit
-        default:
-            break
-        
-        }
-        return result
-    
+    @IBAction func equalAction(_ sender: UIButton) {
+        guard let operation = operation else { return }
+        result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
+        isTypingNumber = false
+        isDoingOperation = true
+        displayValue = result
     }
     
-     func returnMeaningAction(a: Double, b: Double, oper: String) -> Double {
+     func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
         var result = 0.0
         switch oper {
             case "+":
@@ -104,11 +107,13 @@ class ViewController: UIViewController {
                 result = a - b
             case "*":
                 result = a * b
-            case "/":
+            case "÷":
                 result = a / b
-    
+                if b == 0.0 {
+                    result = a
+            }
         default:
-           break
+           print("default")
         }
         
     return result
