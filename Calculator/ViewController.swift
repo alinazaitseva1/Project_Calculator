@@ -8,13 +8,6 @@
 
 import UIKit
 
-enum Operators {
-    case plus
-    case minus
-    case multiply
-    case separate
-}
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
@@ -71,78 +64,79 @@ class ViewController: UIViewController {
         resetDisplay()
     }
     
+    private var makeCalculation = CalculatorBrain()
+    
     @IBAction func performOperator(_ sender: UIButton) {
         isTypingNumber = false
         isDoingOperation = true
+        
+        if isTypingNumber {
+            makeCalculation.setOperand(displayValue)
+            isTypingNumber = false
+        }
         if let matematicalSymbol = sender.currentTitle {
-            if operation == nil {
-                previousValue = displayValue
-                operation = matematicalSymbol
-                displayValue = returnHiddenMeaningAction(value: displayValue, operat: operation!)
-            } else {
-                operation = matematicalSymbol
-                result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
-                operation = nil
-                displayValue = result
-                previousValue = displayValue
-                isTypingNumber = false
-            }
-        }
+            makeCalculation.performOperation(matematicalSymbol)
     }
-    
+        if let result = makeCalculation.result {
+            displayValue = result
+        }
+}
     @IBAction func equalAction(_ sender: UIButton) {
-        guard let operation = operation else { return }
-        result = returnHiddenMeaningAction(value: displayValue, operat: operation)
-        isTypingNumber = false
-        isDoingOperation = true
-        result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
-        displayValue = result
+        
     }
     
-     func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
-        var result = 0.0
-        switch oper {
-            case "+":
-                result = a + b
-            case "-":
-                result = a - b
-            case "*":
-                result = a * b
-            case "÷":
-                result = a / b
-                if b == 0.0 {
-                    result = a
-            }
-        default:
-           print("default")
-        }
-    return result
- }
-    func returnHiddenMeaningAction(value: Double, operat: String ) -> Double {
-        var result = 0.0
-        switch operat {
-        case "x²":
-            result = pow(value, 2)
-        case "x³":
-            result = pow(value, 3)
-        case "xʸ":
-            result = pow(value, value)
-        case "eˣ":
-            result = exp(value)
-        case "sin":
-            result = sin(value*Double.pi/180)
-        case "cos":
-            result = cos(value*Double.pi*180)
-        case "tan":
-            result = tan(value)
-        case "ctg":
-            result = 1/tan(value)
-        default:
-            print("default")
-        }
-        return result
-
-    }
+    //    @IBAction func equalAction(_ sender: UIButton) {
+    //        guard let operation = operation else { return }
+    //        isTypingNumber = false
+    //        isDoingOperation = true
+    //        result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
+    //        displayValue = result
+    //    }
+    
+//     func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
+//        var result = 0.0
+//        switch oper {
+//            case "+":
+//                result = a + b
+//            case "-":
+//                result = a - b
+//            case "*":
+//                result = a * b
+//            case "÷":
+//                result = a / b
+//                if b == 0.0 {
+//                    result = a
+//            }
+//        default:
+//           print("default1")
+//        }
+//    return result
+// }
+//    func returnHiddenMeaningAction(value: Double, operat: String ) -> Double {
+//        var result = 0.0
+//        switch operat {
+//        case "x²":
+//            result = pow(value, 2)
+//        case "x³":
+//            result = pow(value, 3)
+//        case "xʸ":
+//            result = pow(value, value)
+//        case "eˣ":
+//            result = exp(value)
+//        case "sin":
+//            result = sin(value*Double.pi/180)
+//        case "cos":
+//            result = cos(value*Double.pi*180)
+//        case "tan":
+//            result = tan(value*Double.pi*180)
+//        case "ctg":
+//            result = 1/tan(value)
+//        default:
+//            print("default2")
+//        }
+//        return result
+//
+//    }
     
 }
 
