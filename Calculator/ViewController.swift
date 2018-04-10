@@ -78,37 +78,7 @@ class ViewController: UIViewController {
             displayValue = result
         }
     }
-    @IBAction func equalAction(_ sender: UIButton) {
-        
-    }
-    
-    //    @IBAction func equalAction(_ sender: UIButton) {
-    //        guard let operation = operation else { return }
-    //        isTypingNumber = false
-    //        isDoingOperation = true
-    //        result = returnMeaningAction(a: previousValue, displayValue, oper: operation)
-    //        displayValue = result
-    //    }
-    
-//     func returnMeaningAction(a: Double, _ b: Double, oper: String) -> Double {
-//        var result = 0.0
-//        switch oper {
-//            case "+":
-//                result = a + b
-//            case "-":
-//                result = a - b
-//            case "*":
-//                result = a * b
-//            case "÷":
-//                result = a / b
-//                if b == 0.0 {
-//                    result = a
-//            }
-//        default:
-//           print("default1")
-//        }
-//    return result
-// }
+ 
 //    func returnHiddenMeaningAction(value: Double, operat: String ) -> Double {
 //        var result = 0.0
 //        switch operat {
