@@ -27,7 +27,7 @@ struct CalculatorBrain {
         "cos" : Operation.unaryOperation(cos),
         "tan" : Operation.unaryOperation(tan),
         "ctg" : Operation.unaryOperation(tan),
-//        "xʸ" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
+        "xʸ" : Operation.binaryOperation({$0 * pow($0,$1)}),
         "÷" : Operation.binaryOperation({$0 / $1}),
         "+" : Operation.binaryOperation({$0 + $1}),
         "-" : Operation.binaryOperation({$0 - $1}),
