@@ -19,15 +19,15 @@ struct CalculatorBrain {
     }
     
     private var operationActions: Dictionary <String,Operation> = [
-//        "x²" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
-//        "x³" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
-//        "eˣ" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
+        "x²" : Operation.binaryOperation({pow($0, 2)}),
+        "x³" : Operation.binaryOperation({pow($0, 3)}),
+        "eˣ" : Operation.binaryOperation({exp($0)}),
         "±" : Operation.unaryOperation({-$0}),
         "sin" : Operation.unaryOperation(sin),
         "cos" : Operation.unaryOperation(cos),
         "tan" : Operation.unaryOperation(tan),
         "ctg" : Operation.unaryOperation(tan),
-//        "xʸ" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
+        "xʸ" : Operation.binaryOperation(<#T##(Double, Double) -> Double#>),
         "÷" : Operation.binaryOperation({$0 / $1}),
         "+" : Operation.binaryOperation({$0 + $1}),
         "-" : Operation.binaryOperation({$0 - $1}),
@@ -40,7 +40,7 @@ struct CalculatorBrain {
         let firstValue: Double
         
         func performActions(with secondValue: Double) -> Double {
-            return action(firstValue, secondValue)  // function that makes some manipulations with inputed values
+            return action(firstValue, secondValue)
         }
     }
     
@@ -48,26 +48,25 @@ struct CalculatorBrain {
     
     private mutating func performBinaryOperation() {
         if binaryOperationAction != nil && displayValue != nil {
-            displayValue = binaryOperationAction!.performActions(with: displayValue!) //assign to displayValue result of action structure PendingBinaryOperation (with two inputed values)
+            displayValue = binaryOperationAction!.performActions(with: displayValue!)
             binaryOperationAction = nil
         }
     }
     
-    mutating func performOperation(_ sender: String) { // function that switch enum actions and show result to display
+    mutating func performOperation(_ sender: String) {
         if let operation = operationActions[sender] {
             switch operation {
-            case .unaryOperation(let action): // takes double and return double
+            case .unaryOperation(let action):
                 if displayValue != nil {
                     displayValue = action(displayValue!)
                 }
-            case .binaryOperation(let action): // takes two doubles and return double
+            case .binaryOperation(let action):
                 if displayValue != nil {
-                    binaryOperationAction = PendingBinaryOperation(action: action, firstValue: displayValue! ) // assign to optional property result of actions wuth inputed values
-                    // firstValue - is value that shown on display
+                    binaryOperationAction = PendingBinaryOperation(action: action, firstValue: displayValue! )
                     displayValue = nil
                 }
             case .equalAction:
-                performBinaryOperation() // display the result
+                performBinaryOperation() 
             }
         }
     }
@@ -84,16 +83,3 @@ struct CalculatorBrain {
     
 }
 
-//        if let matematicalSymbol = sender.currentTitle {
-//            operation = matematicalSymbol
-//            if operation == nil {
-//                previousValue = displayValue
-//            } else {
-//                //                displayValue = returnHiddenMeaningAction(value: displayValue, operat: operation!)
-//                //
-//                //                result = returnMeaningAction(a: previousValue, displayValue, oper: operation!)
-//                operation = nil
-//                displayValue = result
-//                previousValue = displayValue
-//                isTypingNumber = false
-//            }
