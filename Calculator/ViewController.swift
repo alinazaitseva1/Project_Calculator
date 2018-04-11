@@ -21,16 +21,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func validateData(inputValue value: Double) -> Bool {
-        let maxLimit = 1000.0
-        let minLimit = -1000.0
-        if value < maxLimit && value > minLimit {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     var isTypingNumber = false
     var result = 0.0
     var operation: String?
@@ -43,13 +33,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func touchDigit(_ sender: UIButton) {
-        let digit = sender.currentTitle!
+        let digit = sender.currentTitle! // TODO: remove force unwrapped
             if isTypingNumber, display.text != "0" {
-            let textCurrentlyInDisplay = display.text!
-            let verificationValue = Double(textCurrentlyInDisplay + digit)
-                if validateData(inputValue: verificationValue!) {
-                    display.text = textCurrentlyInDisplay + digit
-                }
+                let textCurrentlyInDisplay = display.text!
+                 display.text = textCurrentlyInDisplay + digit
         } else if digit != "0" {
             display.text = digit
             isTypingNumber = true
@@ -67,13 +54,13 @@ class ViewController: UIViewController {
             makeCalculation.setOperand(displayValue)
             isTypingNumber = false
         }
-        if let matematicalSymbol = sender.currentTitle {
-            makeCalculation.performOperation(matematicalSymbol)
+        if let mathematicalSymbol = sender.currentTitle, let operationValue = CalculatorBrain.OperationsName(rawValue: mathematicalSymbol) {
+            makeCalculation.performOperation(operationValue)
+            // if let operation = OperationsName(rawValue: currentTitle) input it in performOperation
         }
         if let result = makeCalculation.result {
             displayValue = result
+            }
         }
-    }
-    
 }
 

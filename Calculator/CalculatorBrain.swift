@@ -18,42 +18,59 @@ struct CalculatorBrain {
         case equalAction
     }
     
-    private var operationActions: Dictionary <String,Operation> = [
-        "x²" : Operation.unaryOperation({pow($0, 2)}),
-        "x³" : Operation.unaryOperation({pow($0, 3)}),
-        "eˣ" : Operation.unaryOperation({exp($0)}),
-        "±" : Operation.unaryOperation({-$0}),
-        "sin" : Operation.unaryOperation(sin),
-        "cos" : Operation.unaryOperation(cos),
-        "tan" : Operation.unaryOperation(tan),
-        "xʸ" : Operation.binaryOperation({$0 * pow($0,$1)}),
-        "÷" : Operation.binaryOperation({$0 / $1}),
-        "+" : Operation.binaryOperation({$0 + $1}),
-        "-" : Operation.binaryOperation({$0 - $1}),
-        "*" : Operation.binaryOperation({$0 * $1}),
-        "=" : Operation.equalAction
+    private var operationActions: Dictionary <OperationsName,Operation> = [
+        .squareRoot : Operation.unaryOperation({pow($0, 2)}),
+        .cubicRoot : Operation.unaryOperation({pow($0, 3)}),
+        .exponent : Operation.unaryOperation({exp($0)}),
+        .sign : Operation.unaryOperation({-$0}),
+        .sinus : Operation.unaryOperation(sin),
+        .cosine : Operation.unaryOperation(cos),
+        .tan : Operation.unaryOperation(tan),
+        .powerY : Operation.binaryOperation({$0 * pow($0,$1)}),
+        .divide : Operation.binaryOperation({$0 / $1}),
+        .plus : Operation.binaryOperation({$0 + $1}),
+        .minus : Operation.binaryOperation({$0 - $1}),
+        .multiply : Operation.binaryOperation({$0 * $1}),
+        .equal : Operation.equalAction
     ]
+    
+    enum OperationsName: String {
+        case squareRoot = "x²"
+        case cubicRoot = "x³"
+        case exponent = "eˣ"
+        case sign = "±"
+        case sinus = "sin"
+        case cosine = "cos"
+        case tan = "tan"
+        case powerY = "xʸ"
+        case divide = "÷"
+        case plus = "+"
+        case minus = "-"
+        case multiply = "*"
+        case equal = "="
+    }
     
     private struct PendingBinaryOperation {
         let action: (Double, Double) -> Double
         let firstValue: Double
-        
+
         func performActions(with secondValue: Double) -> Double {
             return action(firstValue, secondValue)
+
         }
     }
     
     private var binaryOperationAction: PendingBinaryOperation? // create optional property in which we copy struct PendingBinaryOperation
     
     private mutating func performBinaryOperation() {
-        if binaryOperationAction != nil && displayValue != nil {
-            displayValue = binaryOperationAction!.performActions(with: displayValue!)
+        guard let binaryOperation = binaryOperationAction, var displayValue = displayValue else { return }
+        
+            displayValue = binaryOperation.performActions(with: displayValue)
             binaryOperationAction = nil
-        }
     }
     
-    mutating func performOperation(_ sender: String) {
-        if let operation = operationActions[sender] {
+    mutating func performOperation(_ operationInput: OperationsName) {
+        if let operation = operationActions[operationInput] {
             switch operation {
             case .unaryOperation(let action):
                 if displayValue != nil {
