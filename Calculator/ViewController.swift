@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     var isTypingNumber = false
     var result = 0.0
     var operation: String?
+    var isError = false
 
     func resetDisplay() {
         displayValue = 0.0
@@ -67,21 +68,19 @@ class ViewController: UIViewController {
         if let mathematicalSymbol = sender.currentTitle, let operationValue = CalculatorBrain.OperationsName(rawValue: mathematicalSymbol) {
             do {
                  try makeCalculation.performOperation(operationValue)
-            } catch (let error) {
-                switch error {
-                case ErrorOperations.divisionByZero:
-                    display.text = ErrorOperations.divisionByZero.exchange
-                case ErrorOperations.infinityValue:
-                    display.text = ErrorOperations.infinityValue.exchange
-                default:
-                    break
-                }
+            } catch let error as ErrorOperations {
+                isError = true
+                display.text = error.exchange
+            } catch {
+                isError = true
+                display.text = "Unexpected error"
             }
-            
+
         }
         if let result = makeCalculation.result {
             displayValue = result
             }
+        isError = false
         }
 }
 

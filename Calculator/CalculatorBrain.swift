@@ -55,19 +55,15 @@ struct CalculatorBrain {
         let firstValue: Double
 
         func performActions(with secondValue: Double) throws -> Double {
-            return try! action(firstValue, secondValue)
+            return try action(firstValue, secondValue)
         }
     }
     
-    private var binaryOperationAction: PendingBinaryOperation? // create optional property in which we copy struct PendingBinaryOperation
+    private var binaryOperationAction: PendingBinaryOperation?
     
     private mutating func performBinaryOperation() throws {
         guard let binaryOperation = binaryOperationAction, var displayValue = displayValue else { return }
-        do {
-            displayValue = try binaryOperation.performActions(with: displayValue)
-        } catch (let error) {
-            throw error
-        }
+            try displayValue = binaryOperation.performActions(with: displayValue)
             binaryOperationAction = nil
     }
     
@@ -84,14 +80,9 @@ struct CalculatorBrain {
                         displayValue = nil
                     }
                 case .equalAction:
-                    do {
                        try performBinaryOperation()
-                    } catch (let error) {
-                        throw error
-                    }
-                    
-                }
             }
+        }
     }
     
     mutating func setOperand(_ operand: Double) {
@@ -110,7 +101,6 @@ struct CalculatorBrain {
         } else {
             throw ErrorOperations.divisionByZero
         }
-    
     }
 
 }
