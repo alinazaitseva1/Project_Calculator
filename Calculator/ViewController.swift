@@ -26,7 +26,6 @@ class ViewController: UIViewController {
         }
     }
 
-    
     var isTypingNumber = false
     var result = 0.0
     var operation: String?
@@ -41,6 +40,8 @@ class ViewController: UIViewController {
     @IBAction func touchDigit(_ sender: UIButton) {
         if let digit = sender.currentTitle  {
 //            let digitDouble = Double(digit)
+//            let textCurrentlyInDisplay = display.text
+//            let doubletextCurrentleInDisplay = Double(textCurrentlyInDisplay)
             if isTypingNumber {
                 if let textCurrentlyInDisplay = display.text, let _ = Double(textCurrentlyInDisplay + digit) {
                     display.text = textCurrentlyInDisplay +  digit
@@ -64,7 +65,19 @@ class ViewController: UIViewController {
             isTypingNumber = false
         }
         if let mathematicalSymbol = sender.currentTitle, let operationValue = CalculatorBrain.OperationsName(rawValue: mathematicalSymbol) {
-            makeCalculation.performOperation(operationValue)
+            do {
+                 try makeCalculation.performOperation(operationValue)
+            } catch (let error) {
+                switch error {
+                case ErrorOperations.divisionByZero:
+                    display.text = ErrorOperations.divisionByZero.exchange
+                case ErrorOperations.infinityValue:
+                    display.text = ErrorOperations.infinityValue.exchange
+                default:
+                    break
+                }
+            }
+            
         }
         if let result = makeCalculation.result {
             displayValue = result

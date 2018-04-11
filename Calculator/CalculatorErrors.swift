@@ -9,21 +9,16 @@
 import Foundation
 
 enum ErrorOperations: Error {
-    case divisionbyZero
-    case infinity
-    case tanEror
-    case ctgEror
+    case divisionByZero
+    case infinityValue
     
     var exchange: String {
         switch self {
-        case .divisionbyZero:
+        case .divisionByZero:
             return "Eror! You can not divide by zero"
-        case .infinity:
+        case .infinityValue:
             return "Error! Undifined value"
-        case .tanEror:
-            return "Error! No such value for tan"
-        case .ctgEror:
-            return "Error! No such value for ctg"
+
         }
     }
 }

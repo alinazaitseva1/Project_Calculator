@@ -14,7 +14,7 @@ struct CalculatorBrain {
     
     private enum Operation {
         case unaryOperation( (Double) -> Double )
-        case binaryOperation( (Double, Double) -> Double )
+        case binaryOperation( (Double, Double) throws -> Double )
         case equalAction
     }
     
@@ -51,39 +51,47 @@ struct CalculatorBrain {
     }
     
     private struct PendingBinaryOperation {
-        let action: (Double, Double) -> Double
+        let action: (Double, Double) throws -> Double
         let firstValue: Double
 
-        func performActions(with secondValue: Double) -> Double {
-            return action(firstValue, secondValue)
+        func performActions(with secondValue: Double) throws -> Double {
+            return try! action(firstValue, secondValue)
         }
     }
     
     private var binaryOperationAction: PendingBinaryOperation? // create optional property in which we copy struct PendingBinaryOperation
     
-    private mutating func performBinaryOperation() {
+    private mutating func performBinaryOperation() throws {
         guard let binaryOperation = binaryOperationAction, var displayValue = displayValue else { return }
-        
-            displayValue = binaryOperation.performActions(with: displayValue)
+        do {
+            displayValue = try binaryOperation.performActions(with: displayValue)
+        } catch (let error) {
+            throw error
+        }
             binaryOperationAction = nil
     }
     
-    mutating func performOperation(_ operationInput: OperationsName) {
-        if let operation = operationActions[operationInput] {
-            switch operation {
-            case .unaryOperation(let action):
-                if displayValue != nil {
-                    displayValue = action(displayValue!)
+    mutating func performOperation(_ operationInput: OperationsName) throws {
+            if let operation = operationActions[operationInput] {
+                switch operation {
+                case .unaryOperation(let action):
+                    if displayValue != nil {
+                       displayValue =  action(displayValue!)
+                    }
+                case .binaryOperation(let action):
+                    if displayValue != nil {
+                        binaryOperationAction = PendingBinaryOperation(action: action, firstValue: displayValue! )
+                        displayValue = nil
+                    }
+                case .equalAction:
+                    do {
+                       try performBinaryOperation()
+                    } catch (let error) {
+                        throw error
+                    }
+                    
                 }
-            case .binaryOperation(let action):
-                if displayValue != nil {
-                    binaryOperationAction = PendingBinaryOperation(action: action, firstValue: displayValue! )
-                    displayValue = nil
-                }
-            case .equalAction:
-                performBinaryOperation()
             }
-        }
     }
     
     mutating func setOperand(_ operand: Double) {
@@ -96,5 +104,13 @@ struct CalculatorBrain {
         }
     }
     
-}
+    func division(_ a: Double, _ b: Double) throws -> Double {
+        if b != 0.0 {
+            return a / b
+        } else {
+            throw ErrorOperations.divisionByZero
+        }
+    
+    }
 
+}
