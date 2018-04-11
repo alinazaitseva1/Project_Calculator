@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0F5B9B207E083100423394 /* CalculatorErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F5B9A207E083100423394 /* CalculatorErrors.swift */; };
 		CE24B81C207CB46000C38E88 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE24B81B207CB46000C38E88 /* CalculatorBrain.swift */; };
 		CE85A6972074C49B0064D1D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE85A6962074C49B0064D1D7 /* AppDelegate.swift */; };
 		CE85A6992074C49B0064D1D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE85A6982074C49B0064D1D7 /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE0F5B9A207E083100423394 /* CalculatorErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorErrors.swift; sourceTree = "<group>"; };
 		CE24B81B207CB46000C38E88 /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		CE85A6932074C49B0064D1D7 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE85A6962074C49B0064D1D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				CE85A6982074C49B0064D1D7 /* ViewController.swift */,
 				CE85A69A2074C49B0064D1D7 /* Main.storyboard */,
 				CE85A6B62074C6520064D1D7 /* Supporting files */,
+				CE0F5B9A207E083100423394 /* CalculatorErrors.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE0F5B9B207E083100423394 /* CalculatorErrors.swift in Sources */,
 				CE85A6992074C49B0064D1D7 /* ViewController.swift in Sources */,
 				CE24B81C207CB46000C38E88 /* CalculatorBrain.swift in Sources */,
 				CE85A6972074C49B0064D1D7 /* AppDelegate.swift in Sources */,

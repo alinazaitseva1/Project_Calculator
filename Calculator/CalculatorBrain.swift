@@ -22,7 +22,7 @@ struct CalculatorBrain {
         .squareRoot : Operation.unaryOperation({pow($0, 2)}),
         .cubicRoot : Operation.unaryOperation({pow($0, 3)}),
         .exponent : Operation.unaryOperation({exp($0)}),
-        .sign : Operation.unaryOperation({-$0}),
+        .ctg : Operation.unaryOperation(tanh),
         .sinus : Operation.unaryOperation(sin),
         .cosine : Operation.unaryOperation(cos),
         .tan : Operation.unaryOperation(tan),
@@ -38,7 +38,7 @@ struct CalculatorBrain {
         case squareRoot = "x²"
         case cubicRoot = "x³"
         case exponent = "eˣ"
-        case sign = "±"
+        case ctg = "tanh"
         case sinus = "sin"
         case cosine = "cos"
         case tan = "tan"
@@ -56,7 +56,6 @@ struct CalculatorBrain {
 
         func performActions(with secondValue: Double) -> Double {
             return action(firstValue, secondValue)
-
         }
     }
     

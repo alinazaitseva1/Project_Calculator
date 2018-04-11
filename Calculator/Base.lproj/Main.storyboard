@@ -243,7 +243,7 @@
                                                 <color key="backgroundColor" red="0.7436696062" green="1" blue="0.72976919740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="tintColor" red="0.0297320272" green="0.028737158150000001" blue="0.023484447709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="±"/>
+                                                <state key="normal" title="ctg"/>
                                                 <variation key="heightClass=regular-widthClass=compact" hidden="YES"/>
                                                 <connections>
                                                     <action selector="performOperator:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uF3-mS-3cG"/>
