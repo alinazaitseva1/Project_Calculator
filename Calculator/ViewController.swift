@@ -19,13 +19,11 @@ class ViewController: UIViewController {
             } else {
                 return 0
             }
-//            return Double(display.text!)!
         }
         set {
             display.text = String(newValue)
         }
     }
-
     var isTypingNumber = false
     var result = 0.0
     var operation: String?
@@ -40,14 +38,9 @@ class ViewController: UIViewController {
     
     @IBAction func touchDigit(_ sender: UIButton) {
         if let digit = sender.currentTitle  {
-//            let digitDouble = Double(digit)
-//            let textCurrentlyInDisplay = display.text
-//            let doubletextCurrentleInDisplay = Double(textCurrentlyInDisplay)
-            if isTypingNumber {
-                if let textCurrentlyInDisplay = display.text, let _ = Double(textCurrentlyInDisplay + digit) {
-                    display.text = textCurrentlyInDisplay +  digit
-                }
-            } else {
+            if isTypingNumber, let digitDouble = Double(digit), let textCurrentlyInDisplay = display.text , let doubletextCurrentleInDisplay = Double(textCurrentlyInDisplay) {
+                displayValue = doubletextCurrentleInDisplay + digitDouble
+                        } else {
                 display.text = digit
                 isTypingNumber = true
             }
@@ -75,12 +68,10 @@ class ViewController: UIViewController {
                 isError = true
                 display.text = "Unexpected error"
             }
-
         }
         if let result = makeCalculation.result {
             displayValue = result
             }
-        isError = false
         }
 }
 
